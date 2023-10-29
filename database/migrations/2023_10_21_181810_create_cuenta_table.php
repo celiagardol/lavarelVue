@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categorias', function (Blueprint $table) {
+        Schema::create('cuentas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre',100);
-            $table->string('icon')->nullable(true);
+            $table->string('nombre');
+            $table->bigInteger('saldoActual');
             $table->foreignId("user_id")->constrained('users')->cascadeOnDelete();
+            $table->date('fecha');
+            $table->string('icono')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categorias');
+        Schema::dropIfExists('cuenta');
     }
 };

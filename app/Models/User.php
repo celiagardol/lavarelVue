@@ -33,6 +33,23 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function cuentas()
+    {
+        return $this->hasMany(Cuenta::class);
+    }
+    public function categorias()
+    {
+        return $this->hasMany(Categoria::class);
+    }
+    public function subcategorias()
+    {
+        return $this->hasMany(Subcategoria::class);
+    }
+    public function movimientos()
+    {
+        return $this->hasMany(Movimiento::class);
+    }
+
     /**
      * The attributes that should be cast.
      *

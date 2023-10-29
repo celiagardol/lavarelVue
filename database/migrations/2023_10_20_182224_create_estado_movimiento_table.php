@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categorias', function (Blueprint $table) {
+        /*Puede ser pendiente o realizado. Un movimiento tiene un estado. Un estado pertenece a muchos movimientos*/
+        Schema::create('estado_movimiento', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre',100);
-            $table->string('icon')->nullable(true);
-            $table->foreignId("user_id")->constrained('users')->cascadeOnDelete();
+            $table->string('nombre');
+            $table->string('icono')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categorias');
+        Schema::dropIfExists('estado_movimiento');
     }
 };

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+
 
 class CategoriaController extends Controller
 {
@@ -13,8 +15,10 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::all();
-        return Inertia::render('Categorias/Index',['categorias'=>$categorias]);
+        $usuarioAutenticado = Auth::user();
+        $categoriasUsuario = $usuarioAutenticado->categorias;
+        //$categorias = Categoria::all();
+        return Inertia::render('Categorias/Index',['categorias'=>$categoriasUsuario]);
     }
 
     /**
@@ -32,7 +36,10 @@ class CategoriaController extends Controller
     {
         
       //  $request->validate(['name'=>'required']);
+      $usuarioAutenticado = Auth::user();
+
         $categoria = new Categoria($request->input());
+        $categoria->user_id = $usuarioAutenticado->id;
         $categoria->save();
         return redirect('categorias');
     }
