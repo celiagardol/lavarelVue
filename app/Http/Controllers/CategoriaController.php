@@ -6,6 +6,7 @@ use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use App\Services\CategoriaService;
 
 
 class CategoriaController extends Controller
@@ -13,10 +14,10 @@ class CategoriaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(CategoriaService $categoriaService)
     {
-        $usuarioAutenticado = Auth::user();
-        $categoriasUsuario = $usuarioAutenticado->categorias;
+        $categoriasUsuario = $categoriaService->categoriasIndex();
+     
         //$categorias = Categoria::all();
         return Inertia::render('Categorias/Index',['categorias'=>$categoriasUsuario]);
     }

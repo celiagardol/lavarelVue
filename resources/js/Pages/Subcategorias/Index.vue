@@ -73,7 +73,7 @@ const save = () =>{
 }
 const ok = (msj) =>{
     form.reset();
-    closeModal();
+    cerrarModal();
     Swal.fire({title:msj,icon:'success'});
 }
 
@@ -95,13 +95,14 @@ const borrarSubcategoria = (id,nombre) =>{
 </script>
 
 <template>
+
     <Head title="Subcategorias" />
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Subcategorias</h2>
         </template>
 
-        <div class="py-12">
+        <div class="w-3/3">
             <div class="bg-white grid v-screen place-items-center">
                 <div class="mt-3 mb-3 flex">
                    <PrimaryButton @click = "$event => openModal(1)">
@@ -109,8 +110,8 @@ const borrarSubcategoria = (id,nombre) =>{
                     </PrimaryButton>
                 </div>
             </div>
-            <div class="bg-white grid v-screen place-items-center overflow-x-auto">
-                <table class="table-auto border border-gray-400">
+            <div class="w-full bg-white grid v-screen place-items-center overflow-x-auto">
+                <table class="w-2/3 table-auto border border-gray-400">
                     <thead>
                         <tr class="bg-gray-100">
                             <th class="px-2 py-2">#</th>
@@ -139,7 +140,7 @@ const borrarSubcategoria = (id,nombre) =>{
                     </tbody>  
                 </table>
             </div>
-            <div class="bg-white grid v-screen place-items-center overflow-x-auto">
+            <div class="pt-2 pb-10 bg-white grid v-screen place-items-center overflow-x-auto">
                 <vueTailwindPagination
                     :current="subcategorias.currentPage"
                     :total="subcategorias.total"
@@ -151,7 +152,6 @@ const borrarSubcategoria = (id,nombre) =>{
         <Modal :show="modal" @close="cerrarModal">
             <h2 class="p-3 text-lg font.medium text-hray-900">{{ tittle }}</h2>
             <div class="class p-3 mt-6">
-                <InputLabel for="nombre" value="Nombre"></InputLabel>
                 <TextInput id="nombre" ref="nombreInput" v-model="form.nombre" type="text" class="mt-1 block w-3/4" placeholder="Nombre"></TextInput>
                 <InputError :message="form.errors.nombre" class="mt-2"></InputError>
             </div>
@@ -170,11 +170,11 @@ const borrarSubcategoria = (id,nombre) =>{
             </div>
             <div class="p-3 flex justify-end">
                 <SecondaryButton class="ml-3" :disabled="form.processing" @click="cerrarModal">
-
                 Cancelar
                 </SecondaryButton>
             </div>
 
         </Modal>
     </AuthenticatedLayout>
+
 </template>

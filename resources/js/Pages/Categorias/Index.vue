@@ -70,7 +70,7 @@ const save = () =>{
 }
 const ok = (msj) =>{
     form.reset();
-    closeModal();
+    cerrarModal();
     Swal.fire({title:msj,icon:'success'});
 }
 
@@ -98,7 +98,7 @@ const borrarCategoria = (id,nombre) =>{
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Categorias</h2>
         </template>
 
-        <div class="py-12">
+        <div class="w-3/3">
             <div class="bg-white grid v-screen place-items-center">
                 <div class="mt-3 mb-3 flex">
                    <PrimaryButton @click = "$event => openModal(1)">
@@ -107,7 +107,7 @@ const borrarCategoria = (id,nombre) =>{
                 </div>
             </div>
             <div class="bg-white grid v-screen place-items-center overflow-x-auto">
-                <table class="table-auto border border-gray-400">
+                <table class="w-2/3 table-auto border border-gray-400">
                     <thead>
                         <tr class="bg-gray-100">
                             <th class="px-2 py-2">#</th>
@@ -135,7 +135,7 @@ const borrarCategoria = (id,nombre) =>{
                     </tbody>  
                 </table>
             </div>
-            <div class="bg-white grid v-screen place-items-center overflow-x-auto">
+            <div class="pt-2 pb-10 bg-white grid v-screen place-items-center overflow-x-auto">
                 <vueTailwindPagination
                     :current="categorias.currentPage"
                     :total="categorias.total"
