@@ -12,8 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         \App\Models\Categoria::factory(6)->create();
-         \App\Models\Subcategoria::factory(25)->create();
+      $this->call(UserSeeder::class);
+      $this->call(EstadoMovimientoSeeder::class);
+      $this->call(TipoMovimientoSeeder::class);
+      $this->call(CategoriaSeeder::class);
+      $this->call(CuentaSeeder::class);
          
 
 

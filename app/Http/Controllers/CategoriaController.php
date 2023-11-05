@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Subcategoria;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -77,6 +77,8 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
+        Subcategoria::where('categoria_id', $categoria->id)->delete();
+
         $categoria->delete();
         return redirect('categorias');
     }

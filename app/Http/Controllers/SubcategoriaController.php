@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subcategoria;
 use App\Models\Categoria;
+use App\Models\Icon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use \Illuminate\Support\Facades\DB;
@@ -16,12 +17,13 @@ class SubcategoriaController extends Controller
      */
     public function index()
     {
-        $subcategorias = Subcategoria::select('subcategorias.id','subcategorias.nombre','categoria_id','categorias.nombre as categoria')
+        $subcategorias = Subcategoria::select('subcategorias.id','subcategorias.nombre','subcategorias.icon','categoria_id','categorias.nombre as categoria')
         ->join('categorias','categorias.id', '=', 'subcategorias.categoria_id')
         ->paginate(10);
 
         $categorias = Categoria::all();
-        return Inertia::render('Subcategorias/Index', ['subcategorias'=>$subcategorias, 'categorias'=>$categorias]);
+        $iconos = Icon::all();
+        return Inertia::render('Subcategorias/Index', ['subcategorias'=>$subcategorias, 'categorias'=>$categorias, 'iconos'=>$iconos]);
     }
 
     /**
@@ -39,9 +41,12 @@ class SubcategoriaController extends Controller
     {
         $request->validate([
             'nombre'=> 'required',
-            'categoria_id'=>'required'
+            'categoria_id'=>'required',
+            'icon' => 'required'
         ]);
+        
         $subcategoria = new Subcategoria($request->input());
+        
         $subcategoria->save();
         return redirect('subcategorias');
     }
@@ -69,8 +74,9 @@ class SubcategoriaController extends Controller
     public function update(Request $request, Subcategoria $subcategoria)
     {
         $request->validate([
-            'nombre'=> 'required|max',
-            'categoria_id'=>'required'
+            'nombre'=> 'required',
+            'categoria_id'=>'required',
+            'icon'=>'required'
         ]);
         $subcategoria->update($request->input());
         return redirect('subcategorias');

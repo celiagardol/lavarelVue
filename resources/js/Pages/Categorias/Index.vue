@@ -95,47 +95,40 @@ const borrarCategoria = (id,nombre) =>{
     <Head title="Categorias" />
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Categorias</h2>
+            <div class="flex items-center">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight pr-10">Categorias</h2>
+                
+            </div>
         </template>
-
-        <div class="w-3/3">
-            <div class="bg-white grid v-screen place-items-center">
-                <div class="mt-3 mb-3 flex">
-                   <PrimaryButton @click = "$event => openModal(1)">
-                        <i class="fa-solid fa-plus-circle"></i>Añadir
-                    </PrimaryButton>
-                </div>
-            </div>
-            <div class="bg-white grid v-screen place-items-center overflow-x-auto">
-                <table class="w-2/3 table-auto border border-gray-400">
+        <div class ="w-1/3 pl-10 pt-10">
+            <div class="bg-white grid v-screen  overflow-x-auto">
+               
+                <table class="w-full border-collapse border border-gray-300">
                     <thead>
-                        <tr class="bg-gray-100">
-                            <th class="px-2 py-2">#</th>
-                            <th class="px-2 py-2">CATEGORIA</th>
-                            <th class="px-2 py-2"></th>
-                            <th class="px-2 py-2"></th>
+                        <tr class="bg-blue-500 text-white">
+                        <th class="p-3 text-left"></th>
+                        <th class="p-3 text-left"></th>
+                        <th class="p-3 text-right">                            
+                            <i class="fa-solid fa-plus fa-2xl text-white hover:text-green-700 cursor-pointer pr-2" @click="openModal(1)"></i>
+                        </th>
                         </tr>
-                    </thead>  
-                   <tbody>
-                        <tr v-for="categoria, i in categorias" :key="categoria.id">
-                            <td class ="border border-gray-400 px-2 py-2">{{ (i+1) }}</td>
-                            <td class ="border border-gray-400 px-2 py-2">{{ categoria.nombre }}</td>
-                            <td class ="border border-gray-400 px-2 py-2">
-                                <WarningButton 
-                                @click="openModal(2,categoria.nombre,categoria.id)">
-                                    <i class="fa-solid fa-edit"></i>    
-                                </WarningButton>   
-                            </td>
-                            <td class ="border border-gray-400 px-2 py-2">
-                                <DangerButton @click="borrarCategoria(categoria.id,categoria.nombre)">  
-                                    <i class = "fa-solid fa-trash"></i>
-                                </DangerButton>
-                            </td>
+                    </thead>
+                    <tbody>
+                        <tr v-for="categoria, i in categorias" :key="categoria.id" class="hover:bg-blue-100">
+                        <td class="p-3">{{ (i+1) }}</td>
+                        <td class="p-3">{{ categoria.nombre }}</td>
+                        <td class="p-3">
+                            <i class="fa-solid fa-edit text-blue-500 hover:text-blue-700 cursor-pointer pr-2" @click="openModal(2, categoria.nombre, categoria.id)"></i>
+                            <i class="fa-solid fa-trash text-gray-500 hover:text-gray-700 cursor-pointer" @click="borrarCategoria(categoria.id, categoria.nombre)"></i>
+                        </td>
                         </tr>
-                    </tbody>  
+                    </tbody>
                 </table>
+
+
+
             </div>
-            <div class="pt-2 pb-10 bg-white grid v-screen place-items-center overflow-x-auto">
+            <div v-if="categorias.lenght > 10" class="pt-2 pb-10 bg-white grid v-screen place-items-start overflow-x-auto">
                 <vueTailwindPagination
                     :current="categorias.currentPage"
                     :total="categorias.total"
@@ -158,7 +151,6 @@ const borrarCategoria = (id,nombre) =>{
             </div>
             <div class="p-3 flex justify-end">
                 <SecondaryButton class="ml-3" :disabled="form.processing" @click="cerrarModal">
-
                 Cancelar
                 </SecondaryButton>
             </div>
